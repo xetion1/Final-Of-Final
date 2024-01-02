@@ -1,0 +1,16 @@
+infra: env2
+alert_overrides:
+  - alertname: DiskSpaceLow
+    enabled: no
+  - alertname: NetworkAnomaly
+    enabled: no
+  - alertname: LoginFailures
+    enabled: no
+  - alertname: HighLatency  # Duplicated muted alert
+    enabled: no
+
+group_overrides:
+  - groupname: CacheServers
+    enabled: no
+  - groupname: APIGateways
+    enabled: no

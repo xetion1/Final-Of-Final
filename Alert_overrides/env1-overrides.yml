@@ -1,0 +1,16 @@
+infra: env1
+alert_overrides:
+  - alertname: HighMemoryUsage
+    enabled: no
+  - alertname: ServiceDown
+    enabled: no
+  - alertname: HighLatency
+    enabled: no
+  - alertname: DatabaseReadLatency
+    enabled: no
+
+group_overrides:
+  - groupname: DatabaseClusters
+    enabled: no
+  - groupname: LoadBalancers
+    enabled: no

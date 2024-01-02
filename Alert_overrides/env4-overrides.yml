@@ -1,0 +1,14 @@
+infra: env4
+alert_overrides:
+  - alertname: QueueOverflow
+    enabled: no
+  - alertname: HighErrorRate
+    enabled: no
+  - alertname: ServiceUnavailable
+    enabled: no
+
+group_overrides:
+  - groupname: ApplicationServers
+    enabled: no
+  - groupname: ExternalIntegrations
+    enabled: no

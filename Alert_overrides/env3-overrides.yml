@@ -1,0 +1,16 @@
+infra: env3
+alert_overrides:
+  - alertname: CPUThrottling
+    enabled: no
+  - alertname: UnexpectedReboots
+    enabled: no
+  - alertname: MemoryLeak
+    enabled: no
+  - alertname: ServiceDown  # Duplicated muted alert
+    enabled: no
+
+group_overrides:
+  - groupname: WebServers
+    enabled: no
+  - groupname: AuthenticationServices
+    enabled: no
