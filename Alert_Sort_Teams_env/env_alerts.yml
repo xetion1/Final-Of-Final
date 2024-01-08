@@ -1,0 +1,182 @@
+groups:
+  - name: eu-west-1-clientA-dev-alerts
+    rules:
+      - alert: HighCPUUtilization
+        annotations:
+          description: CPU utilization exceeds 85% for 10 minutes.
+          summary: High CPU Utilization
+        expr: instance:node_cpu_utilisation:rate1m{job="node"} > 0.85
+        for: 10m
+        labels:
+          component: EC2
+          link: [link to grafana dashboard for EC2]
+          runbook: [runbook link]
+          service: Compute
+          team: Operations
+          env: dev
+          sev: P1
+
+      - alert: HighMemoryUsage
+        annotations:
+          description: Memory usage exceeds 80% for 10 minutes.
+          summary: High Memory Usage
+        expr: instance:node_memory_utilisation:rate1m{job="node"} > 0.8
+        for: 10m
+        labels:
+          component: EC2
+          link: [link to grafana dashboard for EC2]
+          runbook: [runbook link]
+          service: Compute
+          team: Operations
+          env: dev
+          sev: P1
+
+      - alert: DiskSpaceLow
+        annotations:
+          description: Disk space is below 15% on instance.
+          summary: Low Disk Space
+        expr: (node_filesystem_avail_bytes{job="node"} / node_filesystem_size_bytes{job="node"}) < 0.15
+        for: 15m
+        labels:
+          component: EC2
+          link: [link to grafana dashboard for EC2]
+          runbook: [runbook link]
+          service: Storage
+          team: Operations
+          env: dev
+          sev: P2
+
+      - alert: NetworkLatencyHigh
+        annotations:
+          description: Network latency exceeds 200ms for 5 minutes.
+          summary: High Network Latency
+        expr: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket{job="api"}[5m])) > 0.2
+        for: 5m
+        labels:
+          component: Network
+          link: [link to grafana dashboard for Network]
+          runbook: [runbook link]
+          service: Networking
+          team: Networking
+          env: dev
+          sev: P2
+
+      - alert: S3BucketSizeLarge
+        annotations:
+          description: S3 bucket size exceeds threshold.
+          summary: S3 Bucket Size Large
+        expr: aws_s3_bucket_size_bytes{bucket="clientA-dev-bucket"} > 10000000000
+        for: 15m
+        labels:
+          component: S3
+          link: [link to grafana dashboard for S3]
+          runbook: [runbook link]
+          service: Storage
+          team: DevOps
+          env: dev
+          sev: P3
+
+      - alert: DatabaseConnectionFailure
+        annotations:
+          description: The database has too many connection failures.
+          summary: Database Connection Failure
+        expr: rate(db_connection_failures[5m]) > 5
+        for: 5m
+        labels:
+          component: Database
+          link: [link to grafana dashboard for Database]
+          runbook: [runbook link]
+          service: Database
+          team: Backend
+          env: dev
+          sev: P1
+
+      - alert: HighErrorRate
+        annotations:
+          description: The application is returning more than 5% errors over 5 minutes.
+          summary: High Application Error Rate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.05
+        for: 5m
+        labels:
+          component: Application
+          link: [link to grafana dashboard for Application]
+          runbook: [runbook link]
+          service: Application
+          team: Backend
+          env: dev
+          sev: P2
+
+      - alert: MessageQueueBackingUp
+        annotations:
+          description: The message queue is backing up and not processing messages fast enough.
+          summary: Message Queue Backing Up
+        expr: rate(message_queue_length[5m]) > 100
+        for: 10m
+        labels:
+          component: Messaging
+          link: [link to grafana dashboard for Messaging]
+          runbook: [runbook link]
+          service: Messaging
+          team: Backend
+          env: dev
+          sev: P3
+
+      - alert: SlowQueryExecution
+        annotations:
+          description: Database queries are taking longer than 2 seconds to execute.
+          summary: Slow Query Execution
+        expr: rate(db_query_duration_seconds{quantile="0.95"}[5m]) > 2
+        for: 5m
+        labels:
+          component: Database
+          link: [link to grafana dashboard for Database]
+          runbook: [runbook link]
+          service: Database
+          team: Backend
+          env: dev
+          sev: P2
+
+      - alert: ServiceUnavailable
+        annotations:
+          description: The service is unavailable or returning errors for more than 1 minute.
+          summary: Service Unavailable
+        expr: up{job="my_service"} == 0
+        for: 1m
+        labels:
+          component: Service
+          link: [link to grafana dashboard for Service]
+          runbook: [runbook link]
+          service: Web Service
+          team: Operations
+          env: dev
+          sev: P1
+
+      - alert: HighRequestLatency
+        annotations:
+          description: The service is experiencing higher than normal latency.
+          summary: High Request Latency
+        expr: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) > 1
+        for: 5m
+        labels:
+          component: Web Service
+          link: [link to grafana dashboard for Web Service]
+          runbook: [runbook link]
+          service: Web Service
+          team: Operations
+          env: dev
+          sev: P2
+
+      - alert: HighLoginFailures
+        annotations:
+          description: There is an unusually high number of login failures.
+          summary: High Login Failures
+        expr: rate(login_failures_total[10m]) > 10
+        for: 10m
+        labels:
+          component: Authentication
+          link: [link to grafana dashboard for Authentication]
+          runbook: [runbook link]
+          service: User Management
+          team: Security
+          env: dev
+          sev: P3

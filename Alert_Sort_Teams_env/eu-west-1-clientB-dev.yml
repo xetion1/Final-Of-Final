@@ -1,0 +1,47 @@
+groups:
+  - name: us-east-1-clientB-prod-alerts
+    rules:
+      - alert: HighMemoryUsage
+        annotations:
+          description: Memory usage exceeds 80% for 10 minutes.
+          summary: High Memory Usage
+        expr: instance:node_memory_utilisation:rate1m{job="node"} > 0.8
+        for: 10m
+        labels:
+          component: EC2
+          link: [link to grafana dashboard for EC2]
+          runbook: [runbook link]
+          service: Compute
+          team: Operations
+          env: prod
+          sev: P1
+
+      - alert: LambdaErrorRateHigh
+        annotations:
+          description: High error rate detected in Lambda functions.
+          summary: Lambda High Error Rate
+        expr: rate(aws_lambda_errors[5m]) / rate(aws_lambda_invocations[5m]) > 0.05
+        for: 5m
+        labels:
+          component: Lambda
+          link: [link to grafana dashboard for Lambda]
+          runbook: [runbook link]
+          service: Compute
+          team: Backend
+          env: prod
+          sev: P2
+
+      - alert: DiskSpaceLow
+        annotations:
+          description: Disk space is below 15% on instance.
+          summary: Low Disk Space
+        expr: (node_filesystem_avail_bytes{job="node"} / node_filesystem_size_bytes{job="node"}) < 0.15
+        for: 15m
+        labels:
+          component: EC2
+          link: [link to grafana dashboard for EC2]
+          runbook: [runbook link]
+          service: Storage
+          team: Operations
+          env: prod
+          sev: P2

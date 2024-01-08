@@ -1,0 +1,21 @@
+ <p><strong>Team Summary:</strong></p>
+    <ul>
+        <li><strong>Name:</strong> Operations</li>
+        <li><strong>Purpose:</strong> Ensures smooth and efficient operation of all IT systems and services.</li>
+        <li><strong>Lead:</strong> John Doe (john.doe@company.com | +123456789 | Jira: JohnDoeOps | Opsgenie: JohnOpsLead)</li>
+    </ul>
+
+    <p><strong>Key Responsibilities:</strong></p>
+    <ul>
+        <li>System Monitoring: Continuous monitoring to detect and resolve issues promptly.</li>
+        <li>Incident Management: Swift response and resolution to minimize service impact.</li>
+        <!-- Add more responsibilities as needed -->
+    </ul>
+
+    <p><strong>Contact Information:</strong></p>
+    <ul>
+        <li>John Doe (Lead): Email: john.doe@company.com | Phone: +123456789</li>
+        <li>Jane Smith (Deputy): Email: jane.smith@company.com | Phone: +987654321</li>
+        <!-- Add more contacts as needed -->
+    </ul>
+
